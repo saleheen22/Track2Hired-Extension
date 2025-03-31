@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Track2Hired",
+    "version": "1.0",
+    "description": "Extract and log job titles from LinkedIn job postings",
+    "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  
+ 
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "host_permissions": [
+      "https://track2-hired-server-qvvtbnykj-muntasaleheengmailcoms-projects.vercel.app/*"
+    ],
+    "action": {
+      "default_title": "Extract Job Title",
+      "default_popup": "popup.html"
+    }
+ 
+  }
