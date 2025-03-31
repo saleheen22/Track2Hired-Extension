@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // Send directly to API
-      const response = await fetch('https://track2-hired-server-7rr9ty28n-muntasaleheengmailcoms-projects.vercel.app/jobs', {
+      const response = await fetch('https://track2-hired-server-hn41y0lpf-muntasaleheengmailcoms-projects.vercel.app/jobs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
