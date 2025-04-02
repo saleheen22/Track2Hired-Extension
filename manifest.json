@@ -11,7 +11,7 @@
       "type": "module"
     },
     "host_permissions": [
-      "https://track2-hired-server-qvvtbnykj-muntasaleheengmailcoms-projects.vercel.app/*"
+      "https://track2-hired-server-ki6jux01w-muntasaleheengmailcoms-projects.vercel.app/*"
     ],
     "action": {
       "default_title": "Extract Job Title",

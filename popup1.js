@@ -3,11 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         // Get current tab
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        let jobTitle, jobDescription;
+        
         // Execute script to extract job info directly
         const results = await chrome.scripting.executeScript({
           target: { tabId: tab.id },
           func: () => {
+            let jobTitle = '';
+            let jobDescription = '';
             if (window.location.href.includes("linkedin.com")) {
               jobTitle = document.querySelector(".job-details-jobs-unified-top-card__job-title h1 a")?.textContent?.trim()
               || document.querySelector(".jobs-unified-top-card h1 a")?.textContent?.trim();
@@ -45,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Send directly to API
-        const response = await fetch('https://track2-hired-server-h1i2juvei-muntasaleheengmailcoms-projects.vercel.app/jobs', {
+        const response = await fetch('https://track2-hired-server-ki6jux01w-muntasaleheengmailcoms-projects.vercel.app/jobs', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
