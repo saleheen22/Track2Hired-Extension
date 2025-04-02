@@ -3,19 +3,25 @@
     "name": "Track2Hired",
     "version": "1.0",
     "description": "Extract and log job titles from LinkedIn job postings",
-    "permissions": ["activeTab", "scripting", "tabs", "storage"],
-  
+    "permissions": ["cookies","activeTab", "scripting", "tabs", "storage", "sidePanel"],
+  "side_panel": {
+        "default_path": "sidepanel.html"
+    },
  
     "background": {
       "service_worker": "background.js",
       "type": "module"
     },
     "host_permissions": [
-      "https://track2-hired-server-ki6jux01w-muntasaleheengmailcoms-projects.vercel.app/*"
+      "https://*.linkedin.com/*",
+      "https://*.ziprecruiter.com/*",
+      "https://*.glassdoor.com/*",
+      "https://*.indeed.com/*",
+      "https://track2-hired-server-6evgqjszq-muntasaleheengmailcoms-projects.vercel.app/*"
     ],
     "action": {
-      "default_title": "Extract Job Title",
-      "default_popup": "popup.html"
+      "default_title": "Extract Job Title"
+      
     }
  
   }

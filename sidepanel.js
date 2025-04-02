@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
               title: jobTitle,
             description: jobDescription,
+            email: 'abc@gmail.com',
+            company: 'ABC',
               url: window.location.href,
               dateExtracted: new Date().toISOString()
             };
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Send directly to API
-        const response = await fetch('https://track2-hired-server-ki6jux01w-muntasaleheengmailcoms-projects.vercel.app/jobs', {
+        const response = await fetch('https://track2-hired-server-6evgqjszq-muntasaleheengmailcoms-projects.vercel.app/jobs', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -56,7 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         if (!response.ok) {
-          throw new Error(`API Error: ${response.status}`);
+          const errorData = await response.json();
+          
+          // Check for duplicate job error
+          if (response.status === 409 || errorData?.error?.includes('duplicate')) {
+            throw new Error('This job has already been saved!');
+          }
+          
+          // Handle other API errors
+          throw new Error(`API Error: ${errorData?.error || response.status}`);
         }
         
         const data = await response.json();
