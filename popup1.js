@@ -3,15 +3,32 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         // Get current tab
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        
+        let jobTitle, jobDescription;
         // Execute script to extract job info directly
         const results = await chrome.scripting.executeScript({
           target: { tabId: tab.id },
           func: () => {
-            const jobTitle = document.querySelector(".job-details-jobs-unified-top-card__job-title h1 a")?.textContent?.trim()
+            if (window.location.href.includes("linkedin.com")) {
+              jobTitle = document.querySelector(".job-details-jobs-unified-top-card__job-title h1 a")?.textContent?.trim()
               || document.querySelector(".jobs-unified-top-card h1 a")?.textContent?.trim();
-            const jobDescription = document.querySelector("article").innerText.trim();
+              jobDescription = document.querySelector("article").innerText.trim();
             console.log("this is job descirption", jobDescription);
+            }
+            if(window.location.href.includes("indeed.com")){
+              jobTitle = document.querySelector('[data-testid="simpler-jobTitle"]')?.innerText.trim();
+            }
+            if(window.location.href.includes("ziprecruiter.com")){
+              jobTitle = document.querySelector('[data-testid="right-pane"] h1')?.innerText.trim();
+            }
+
+            if(window.location.href.includes('glassdoor.com')){
+              jobTitle = document.querySelector('.JobDetails_employerAndJobTitle__nSJrW h1').innerText.trim();
+            }
+            
+            
+            
+            
+            
             return {
               title: jobTitle,
             description: jobDescription,

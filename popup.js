@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const results = await chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: () => {
+          // if the url is linkedin
           const jobTitle = document.querySelector(".job-details-jobs-unified-top-card__job-title h1 a")?.textContent?.trim()
             || document.querySelector(".jobs-unified-top-card h1 a")?.textContent?.trim();
           
