@@ -90,11 +90,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .replace(/\s+/g, ' ')  // normalize whitespace
                 
             }
-            company = document.querySelector(".job-details-jobs-unified-top-card__company-name a")?.textContent?.trim();
+            company = document.querySelector(".job-details-jobs-unified-top-card__company-name a")?.textContent?.trim() ;
             }
 
             if(window.location.href.includes("indeed.com")){
               jobTitle = document.querySelector('[data-testid="simpler-jobTitle"]')?.innerText.trim();
+              company = document.querySelector('.jobsearch-JobInfoHeader-companyNameSimple')?.innerText.trim() || document.querySelector(".jobsearch-JobInfoHeader-companyNameLink")?.innerText.trim();
+              
+              jobDescription  = document.querySelector('#jobDescriptionText').textContent.trim();
             }
             if(window.location.href.includes("ziprecruiter.com")){
               jobTitle = document.querySelector('[data-testid="right-pane"] h1')?.innerText.trim();
