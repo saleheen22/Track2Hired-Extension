@@ -92,11 +92,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             company = document.querySelector(".job-details-jobs-unified-top-card__company-name a")?.textContent?.trim();
             }
+
             if(window.location.href.includes("indeed.com")){
               jobTitle = document.querySelector('[data-testid="simpler-jobTitle"]')?.innerText.trim();
             }
             if(window.location.href.includes("ziprecruiter.com")){
               jobTitle = document.querySelector('[data-testid="right-pane"] h1')?.innerText.trim();
+              company =document.querySelector('[data-testid="right-pane"] a')?.innerText.trim();
+              jobDescription = document.querySelector('[data-testid="right-pane"]')?.textContent;
+            
+            
             }
   
             if(window.location.href.includes('glassdoor.com')){
