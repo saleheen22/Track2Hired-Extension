@@ -13,8 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.location.href.includes("linkedin.com")) {
               jobTitle = document.querySelector(".job-details-jobs-unified-top-card__job-title h1 a")?.textContent?.trim()
               || document.querySelector(".jobs-unified-top-card h1 a")?.textContent?.trim();
-              jobDescription = document.querySelector("article").innerText.trim();
-            console.log("this is job descirption", jobDescription);
+            //   jobDescription = document.querySelector("article").innerText.trim();
+            // console.log("this is job descirption", jobDescription);
+            const articleElement = document.querySelector("article");
+            if (articleElement) {
+              jobDescription = String(articleElement.innerText).trim()
+                .replace(/\s+/g, ' ')  // normalize whitespace
+                
+            }
             }
             if(window.location.href.includes("indeed.com")){
               jobTitle = document.querySelector('[data-testid="simpler-jobTitle"]')?.innerText.trim();
@@ -34,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
               title: jobTitle,
             description: jobDescription,
-            email: 'abc@gmail.com',
+            email: '1@gmail.com',
             company: 'ABC',
               url: window.location.href,
               dateExtracted: new Date().toISOString()
@@ -49,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Send directly to API
-        const response = await fetch('https://track2-hired-server-6evgqjszq-muntasaleheengmailcoms-projects.vercel.app/jobs', {
+        const response = await fetch('http://localhost:3000/jobs', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
