@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extract Job Title</title>
-</head>
-<body>
-    <h2>Save the job</h2>
-    <button id="extractBtn">Save the job</button>
-    <div>
-        
-    <script src="popup1.js"></script>
-    
-    
-</body>
-</html>
+<form id="manualForm" style="width:85vw; height:60vh; display:flex; flex-direction:column; box-sizing:border-box; padding:10px;">
+    <h2 style="margin-top:0;">Manual Job Entry</h2>
+    <label><h3>Job Title:</h3></label>
+    <input type="text" id="manualTitle" placeholder="Job Title" required style="width:100%; padding:8px; margin-bottom:10px;"/>
+    <label><h3>Job Title:</h3></label>
+    <input type="text" id="manualComp" placeholder="Company Name" required style="width:100%; padding:8px; margin-bottom:10px;"/>
+    <label><h2>Company Name:</h2></label>
+    <textarea id="manualDesc" placeholder="Job Description" required style="width:100%; padding:8px; margin-bottom:10px; height:75vh; resize:none;"></textarea>
+    <label>Job URL:</label>
+    <input type="text" id="manualURL" value="${tab.url}" placeholder="Job URL" required style="width:100%; padding:8px; margin-bottom:10px;"/>
+    <button type="submit" style="padding:10px; background:#0073b1; color:#fff; border:none; border-radius:4px; cursor:pointer;">Save Job</button>
+  </form>

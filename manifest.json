@@ -17,7 +17,8 @@
       "https://*.ziprecruiter.com/*",
       "https://*.glassdoor.com/*",
       "https://*.indeed.com/*",
-      "https://track2-hired-server-6evgqjszq-muntasaleheengmailcoms-projects.vercel.app/*"
+      "https://track2-hired-server-6evgqjszq-muntasaleheengmailcoms-projects.vercel.app/*",
+      "http://localhost:3000/*"
     ],
     "action": {
       "default_title": "Extract Job Title"
