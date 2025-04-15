@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Job saved successfully!');
         
       } catch (error) {
-        console.error('Error:', error);
+        
         alert(error.message);
       }
     });
