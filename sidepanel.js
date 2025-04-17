@@ -1,4 +1,16 @@
-
+function parseJwt(token) {
+  if (!token) return null;
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return null;
+  }
+};
 document.addEventListener('DOMContentLoaded', async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   // Define the recognized job site domains
@@ -6,7 +18,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   const domainMatch = allowedDomains.some(domain => tab.url.includes(domain));
   
   const resultDiv = document.getElementById("result");
-  
+  // Try to get the JWT cookie from your API domain
+  chrome.cookies.get({ url: "http://localhost:3000", name: "track2hired" }, function(cookie) {
+    let email = null;
+    if (cookie && cookie.value) {
+      const payload = parseJwt(cookie.value);
+      if (payload && payload.email) {
+        email = payload.email;
+      }
+    }
+
+    if (!email) {
+      // Hide the save/extract button and show login message
+      extractBtn.disabled = true;
+    extractBtn.style.opacity = "0.5";
+    extractBtn.style.cursor = "not-allowed";
+    extractBtn.title = "Please log in to the Track2Hired website to save jobs.";
+
+      resultDiv.innerHTML = `<div style="color:red;font-weight:bold;">Please log in to the Track2Hired website to save jobs.</div>`;
+      return;
+    }
   if (!domainMatch) {
     const extractBtn = document.getElementById("extractBtn");
     if (extractBtn) {
@@ -15,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // If the active URL is not one of the recognized sites,
     // inject a manual form for job details.
     resultDiv.innerHTML = `
-    <form id="manualForm" style="width:85vw; height:100vh; display:flex; flex-direction:column; box-sizing:border-box; padding:10px;">
+    <form id="manualForm" style="width:85vw; height:100vh; display:flex; flex-direction:column; box-sizing:border-box; padding:10px">
     <h2 style="margin-top:0;">Manual Job Entry</h2>
     <label><h3>Job Title:</h3></label>
     <input type="text" id="manualTitle" placeholder="Job Title" required style="width:100%; padding:8px; margin-bottom:10px;"/>
@@ -38,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       const jobData = {
         title: manualTitle,
-        email: '1@gmail.com',
+        email: email,
         company: manualComp,
         description: manualDesc,
         url: manualURL,
@@ -75,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Execute script to extract job info directly
         const results = await chrome.scripting.executeScript({
           target: { tabId: tab.id },
-          func: () => {
+          func: (email) => {
             let jobTitle = '';
             let jobDescription = '';
             let company = '';
@@ -118,12 +149,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             return {
               title: jobTitle,
             description: jobDescription,
-            email: '1@gmail.com',
+            email: email,
             company: company,
               url: window.location.href,
               dateExtracted: new Date().toISOString()
             };
-          }
+          },
+          args: [email]
         });
         
         const jobData = results[0]?.result;
@@ -164,4 +196,5 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   }
+});
 });
