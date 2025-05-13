@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   const resultDiv = document.getElementById("result");
   // Try to get the JWT cookie from your API domain
-  chrome.cookies.get({ url: "http://localhost:3000", name: "track2hired" }, function(cookie) {
+  chrome.cookies.get({ url: "https://track2hired-server.onrender.com", name: "track2hired" }, function(cookie) {
     let email = null;
     if (cookie && cookie.value) {
       const payload = parseJwt(cookie.value);
@@ -35,7 +35,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     extractBtn.style.cursor = "not-allowed";
     extractBtn.title = "Please log in to the Track2Hired website to save jobs.";
 
-      resultDiv.innerHTML = `<div style="color:red;font-weight:bold;">Please log in to the Track2Hired website to save jobs.</div>`;
+      resultDiv.innerHTML = `<div style="color:red;font-weight:bold;">Please log in to the Track2Hired website to save jobs.</div>
+      <div style="margin-top:10px;">
+          <a href="https://track2hired.web.app/login" 
+             target="_blank" 
+             style="color:blue;text-decoration:underline;">
+            Click here to log in
+          </a>
+        </div>`;
       return;
     }
   if (!domainMatch) {
@@ -77,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       };
       
       try {
-        const response = await fetch('http://localhost:3000/save/jobs', {
+        const response = await fetch('https://track2hired-server.onrender.com/save/jobs', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(jobData)
@@ -165,7 +172,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         
         // Send directly to API
-        const response = await fetch('http://localhost:3000/save/jobs', {
+        const response = await fetch('https://track2hired-server.onrender.com/save/jobs', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

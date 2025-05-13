@@ -4,6 +4,11 @@
     "version": "1.0",
     "description": "Extract and log job titles from LinkedIn job postings",
     "permissions": ["cookies","activeTab", "scripting", "tabs", "storage", "sidePanel"],
+      "icons": {
+        "16": "logo_blue_resized.png",
+        "48": "logo_blue_resized.png",
+        "128": "logo_blue_resized.png"
+    },
   "side_panel": {
         "default_path": "sidepanel.html"
     },
@@ -17,11 +22,14 @@
       "https://*.ziprecruiter.com/*",
       "https://*.glassdoor.com/*",
       "https://*.indeed.com/*",
-      "https://track2-hired-server-6evgqjszq-muntasaleheengmailcoms-projects.vercel.app/*",
-      "http://localhost:3000/*"
+      "https://track2hired-server.onrender.com/*",
+      "https://track2hired.web.app/*"
+      
     ],
     "action": {
-      "default_title": "Extract Job Title"
+      "default_title": "Extract Job Title",
+            "default_icon": "logo_blue_resized.png"
+
       
     }
  
