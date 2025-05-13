@@ -3,7 +3,7 @@
     "name": "Track2Hired",
     "version": "1.0",
     "description": "Extract and log job titles from LinkedIn job postings",
-    "permissions": ["cookies","activeTab", "scripting", "tabs", "storage", "sidePanel"],
+    "permissions": ["cookies","activeTab", "scripting", "tabs", "sidePanel"],
       "icons": {
         "16": "logo_blue_resized.png",
         "48": "logo_blue_resized.png",
